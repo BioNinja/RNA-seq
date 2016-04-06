@@ -10,7 +10,7 @@ do
 #"Please use sort -k1,1 -k2,2n with LC_COLLATE=C,  or bedSort and try again"
 #using the command below will fix the problem.
 
-bedtools genomecov -ibam hisat_out/${var}.sorted.bam -g ~/Genome/hg19/hg19.chrom.size.txt -split -bg | LCLC_COLLATE=C sort -k1,1 -k2,2n  > hisat_out/NC.sorted.bedgraph
+bedtools genomecov -ibam hisat_out/${var}.sorted.bam -g ~/Genome/hg19/hg19.chrom.size.txt -split -bg | LC_COLLATE=C sort -k1,1 -k2,2n  > hisat_out/${var}.sorted.bedgraph
 done
 
 # Bedgraph is inefficient for large files.
