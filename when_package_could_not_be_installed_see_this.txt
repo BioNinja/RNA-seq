@@ -1,0 +1,13 @@
+the error seem to be like this:
+
+> chooseCRANmirror()
+Error in download.file(url, destfile = f, quiet = TRUE) : 
+  cannot open URL 'https://cran.r-project.org/CRAN_mirrors.csv'
+In addition: Warning message:
+In download.file(url, destfile = f, quiet = TRUE) :
+  InternetOpenUrl failed: ''
+
+the correct way to fix this:
+> chooseCRANmirror(useHTTPS = FALSE)
+
+
