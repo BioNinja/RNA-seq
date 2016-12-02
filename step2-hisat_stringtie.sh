@@ -39,7 +39,7 @@ mkdir -p ballgown
 
 for var in ${sample[@]}
     do
-        hisat2 -p 16 --dta -x $genome/mm10  -1 ${var}_R1_paired.trim.fq.gz -2 ${var}_R1_paired.trim.fq.gz  --known-splicesite-infile $genome/splicesites.txt  -S ./hisat_out/${var##*/}.sam   -t 2> ./hisat_out/${var##*/}.align.log
+        hisat2 -p 16 --dta -x $genome/mm10  -1 ${var}_R1_paired.trim.fq.gz -2 ${var}_R2_paired.trim.fq.gz  --known-splicesite-infile $genome/splicesites.txt  -S ./hisat_out/${var##*/}.sam   -t 2> ./hisat_out/${var##*/}.align.log
 done
 
 #running stringtie
