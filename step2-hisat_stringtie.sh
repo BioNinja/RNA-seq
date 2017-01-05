@@ -11,7 +11,6 @@
 # don't flood myself with e-mail
 #$ -m n
 # this is my e-mail address
-##$ -M yaochengxu@picb.ac.cn
 # notify me about pending SIG_STOP and SIG_KILL
 ##$ -notify
 # name of the job
@@ -49,7 +48,7 @@ for var in ${sample[@]}
         samtools view -@ 16 -bS ./hisat_out/${var##*/}.sam | samtools sort -@ 16  -T ./hisat_out/${var##*/} -o ./hisat_out/${var##*/}.sorted.bam
         #samtools sort -T  ./hisat_out/${var} -o ./hisat_out/${var}.sorted.bam ./hisat_out/${var}.bam 
         samtools index ./hisat_out/${var##*/}.sorted.bam
-        stringtie -e -B -G $gtf -p 16 -o ./ballgown/${var##*/}/${var##*/}.gtf  ./hisat_out/${var##*/}.sorted.bam
+        stringtie -e -B -G $gtf -p 16 -A ./ballgown/${var##*/}.tab -o ./ballgown/${var##*/}/${var##*/}.gtf  ./hisat_out/${var##*/}.sorted.bam
         rm ./hisat_out/${var##*/}.sam 
 done
 
