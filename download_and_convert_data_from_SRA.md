@@ -34,3 +34,11 @@ You need two file:
  Try this command. You need a pipe between the two file names above, but you should now get much faster downloads!
 
     prefetch --ascp-path "/Users/bioninja/.aspera/connect/bin/ascp|/Users/bioninja/.aspera/connect/etc/asperaweb_id_dsa.openssh" SRR1982614
+
+
+5. convert SRA to fastq 
+
+why need many options, visit: https://edwards.sdsu.edu/research/fastq-dump/
+you could add --outdir <path> Output directory, to specify the output dir.
+
+    fastq-dump --gzip --skip-technical  --readids --dumpbase --split-files --clip  sra_filename
