@@ -15,7 +15,7 @@ file = glob.glob("*.diff")
 
 
 name = [f.rstrip(".diff") for f in file]
-nam = [(a.split("_vs_")[0],a.split("_vs_")[1]) for a in ]
+nam = [(a.split("_vs_")[1], a.split("_vs_")[0]) for a in name ]
 
 # In[26]:
 
@@ -37,6 +37,7 @@ diff_file = glob.glob("*.fc2.sig.csv")
 
 file_dict = {}
 for i,f in enumerate(diff_file):
+    name = f.rstrip(".diff.fc2.sig.csv")
     diff_merge = pd.read_csv(f)
     diff_list = diff_merge.GeneName.str.upper().squeeze().tolist()
     diff_list_up =  diff_merge[diff_merge['log2fdc'] > 0].GeneName.str.upper().squeeze().tolist()
@@ -58,7 +59,7 @@ genesets = ['GO_Biological_Process_2015','GO_Cellular_Component_2015','KEGG_2016
 # In[36]:
 
 #all_list = [diff_list, diff_list_dw, diff_list_up]
-desc = ['all','up_regulate','down_regulate']
+desc = ['all_deg','up_regulate','down_regulate']
 
 
 # In[40]:
