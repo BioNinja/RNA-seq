@@ -1,0 +1,44 @@
+## steps to download SRA data from NCBI
+
+1. download SRA accesion list from SRA run selector
+https://trace.ncbi.nlm.nih.gov/Traces/study/?go=home
+
+2. install aspera-connect
+
+download from here: http://downloads.asperasoft.com/en/downloads/8?list
+install as a local user
+
+## Accessing the ‘ascp’ utility.
+
+As of version 3.3x of Aspera Connect, the default install location for ascp is:
+
+* Microsoft Windows: ‘C:\Program Files\Aspera\Aspera Connect\bin\ascp.exe’
+
+* Mac OS X: ‘/Applications/Aspera Connect.app/Contents/Resources/ascp’ (Administrator-installed Aspera Connect) or ‘/Users/[username]/Applications/Aspera\ Connect.app/Contents/Resources/ascp’ (Non-administrator install)
+
+* Linux: ‘/opt/aspera/bin/ascp’ or ‘/home/[username]/.aspera/connect/bin/ascp’
+
+
+3. install sra-tools 
+
+	conda install -c bioconda sra-tools
+
+4. downlaod 
+
+You need two file:
+
+    1. The ascp executable binary, which is probably in $HOME/.aspera/connect/bin/ascp
+    2. The ascp ssh key, which is probably in $HOME/.aspera/connect/etc/asperaweb_id_dsa.openssh
+ 
+ Now you can use asco with either prefetch or fastq dump.
+ Try this command. You need a pipe between the two file names above, but you should now get much faster downloads!
+
+    prefetch --ascp-path "/Users/bioninja/.aspera/connect/bin/ascp|/Users/bioninja/.aspera/connect/etc/asperaweb_id_dsa.openssh" SRR1982614
+
+
+5. convert SRA to fastq 
+
+why need many options, visit: https://edwards.sdsu.edu/research/fastq-dump/
+you could add --outdir <path> Output directory, to specify the output dir.
+
+    fastq-dump --gzip --skip-technical  --readids --dumpbase --split-files --clip  sra_filename
