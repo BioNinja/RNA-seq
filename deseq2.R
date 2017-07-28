@@ -97,25 +97,27 @@ pdf("differential_expression/Samples.PCA.pdf",width = 7.31, height = 5.31)
 data <- plotPCA(rld, intgroup="condition", returnData=TRUE)
 percentVar <- round(100 * attr(data, "percentVar"))
 ggplot(data, aes(PC1, PC2, color=condition, label=rownames(data)))+
-  geom_text(check_overlap = T,vjust = 0, nudge_y = 0.5) + geom_point(size=3) +
+  geom_text_repel(fontface = "bold")+
+  geom_point(size=3) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
   ylab(paste0("PC2: ",percentVar[2],"% variance"))
 dev.off()
-
+#+geom_text(data=filter(results, padj<0.05), aes(label=Gene))
+#geom_text(hjust=0.5, vjust = 0,fontface = "bold",position=position_jitter(width=1,height=1))
 # this gives log2(n + 1)
 ntd <- normTransform(dds)
 ntd2 = t(scale(t(as.matrix(assay(ntd)))))
 colnames(ntd2) = alias
 library("pheatmap")
 select <- order(rowMeans(counts(dds,normalized=TRUE)),
-                decreasing=TRUE)[1:20]
+                decreasing=TRUE)[1:100]
 df <- as.data.frame(colData(dds)[,"condition"])
 rownames(df) = colnames(rld)
 colnames(df) = 'treatment'
 outGenes = paste("differential_expression/diff", 'HDE', "vs",'Ctrl',"top20genes.pdf",sep="_")
 pdf(outGenes, width = 7.31,height = 5.32)
 pheatmap(ntd2[select,], cluster_rows=T, show_rownames=T,
-         cluster_cols=T, annotation_col=df)
+         cluster_cols=T, annotation_col = df)
 dev.off()
 outGenes = paste("differential_expression/diff", 'HDE', "vs",'Ctrl',"top20genes.pdf",sep="_")
 pdf(outGenes, width = 7.31,height = 5.32)
